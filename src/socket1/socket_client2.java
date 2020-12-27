@@ -1,0 +1,37 @@
+package socket1;
+
+//java socket client example
+import java.io.*;
+import java.net.*;
+
+public class socket_client2
+{
+  public static void main(String[] args) throws IOException 
+  {
+      Socket s = new Socket();
+	String host = "www.google.com";
+	PrintWriter s_out = null;
+		
+      try 
+      {
+		s.connect(new InetSocketAddress(host , 80));
+		System.out.println("Connected");
+			
+		//writer for socket
+          s_out = new PrintWriter( s.getOutputStream(), true);
+      }
+      
+      //Host not found
+      catch (UnknownHostException e) 
+      {
+          System.err.println("Don't know about host : " + host);
+          System.exit(1);
+      }
+      
+      //Send message to server
+	String message = "GET / HTTP/1.1\r\n\r\n";
+	s_out.println( message );
+			
+	System.out.println("Message send");
+  }
+}
